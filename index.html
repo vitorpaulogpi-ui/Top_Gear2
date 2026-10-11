@@ -3,40 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Gear 2 - SNES no GitHub</title>
+    <title>Top Gear 2 - SNES</title>
     <style>
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
-            font-family: Arial, sans-serif;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
         }
-        #game {
+        h1 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+        #game-container {
             width: 800px;
             height: 600px;
-            max-width: 100%;
+            max-width: 95vw;
+            max-height: 80vh;
+            border: 2px solid #333;
+            background-color: #111;
         }
     </style>
 </head>
 <body>
 
     <h1>Top Gear 2 - SNES</h1>
-    <div id="game"></div>
+    <div id="game-container"></div>
 
+    <!-- Scripts atualizados do EmulatorJS -->
     <script>
-        EJS_player = '#game';
-        EJS_core = 'snes';
-        EJS_gameUrl = 'https://vitorpaulogpi-ui.github.io/Top_Gear2/Top_Gear_2.sfc'; // Nome do arquivo da ROM no seu repositório
-        EJS_mouse = false;
-        EJS_multitap = false;
-        EJS_pathtodata = 'https://emulatorjs.org';
+        EJS_player = '#game-container';
+        EJS_core = 'snes'; // Define o console como Super Nintendo
+        EJS_gameUrl = 'Top_Gear_2.sfc'; // Certifique-se que o nome do arquivo da ROM está EXATAMENTE igual (incluindo maiúsculas)
+        EJS_pathtodata = 'https://githack.com';
+        EJS_startOnLoaded = true;
     </script>
-    <script src="https://emulatorjs.orgloader.js"></script>
+    <script src="https://githack.comloader.js"></script>
 
 </body>
 </html>
