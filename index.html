@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SNES Online - Top Gear</title>
+    <style>
+        /* Reseta estilos básicos e impede zoom indesejado no celular */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #111;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container do Emulador */
+        #game-container {
+            width: 100%;
+            height: 100%;
+            max-width: 1024px; /* Limita o tamanho em telas grandes */
+            max-height: 768px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* Área onde o EmulatorJS vai renderizar o jogo */
+        #emulator {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Aviso simples caso falte a ROM */
+        #error-msg {
+            display: none;
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ff4444;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="error-msg">
+            <h3>ROM não encontrada!</h3>
+            <p>Certifique-se de que o arquivo <b>topgear.sfc</b> está na mesma pasta que este HTML e que você está rodando um servidor local.</p>
+        </div>
+        <!-- O emulador será injetado aqui -->
+        <div id="emulator"></div>
+    </div>
+
+    <!-- Script de configuração do EmulatorJS -->
+    <script>
+        // Configurações globais necessárias antes de carregar o script do emulador
+        EJS_player = '#emulator';
+        EJS_core = 'snes'; // Define o sistema como Super Nintendo
+        EJS_gameName = 'Top Gear';
+        EJS_color = '#0066ff'; // Cor do tema dos menus do emulador
+        
+        // Caminho para o arquivo da ROM do jogo
+        EJS_gameUrl = 'topgear.sfc'; 
+
+        // Caminhos dos arquivos de sistema hospedados na CDN oficial do EmulatorJS
+        EJS_pathtodata = 'https://emulatorjs.org';
+    </script>
+
+    <!-- Carrega a biblioteca do EmulatorJS que faz a mágica acontecer -->
+    <script src="https://emulatorjs.orgloader.js"></script>
+
+    <script>
+        // Monitoramento básico para avisar se a ROM falhar ao carregar (ex: arquivo faltando)
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch(EJS_gameUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (!response.ok) {
+                        document.getElementById('error-msg').style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('error-msg').style.display = 'block';
+                });
+        });
+    </script>
+
+</body>
+</html>
